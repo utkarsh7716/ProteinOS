@@ -2,33 +2,25 @@ services:
   postgres:
     image: postgres:16
     container_name: proteinos-db
-    restart: unless-stopped
-
+    restart: always
     environment:
-      POSTGRES_DB: proteinos
-      POSTGRES_USER: proteinadmin
-      POSTGRES_PASSWORD: password123
-
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
-
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4
     container_name: proteinos-pgadmin
-    restart: unless-stopped
-
+    restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@proteinos.com
-      PGADMIN_DEFAULT_PASSWORD: admin123
-
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     ports:
       - "5050:80"
 
-    depends_on:
-      - postgres
-
 volumes:
-  postgres_data:
+  postgres-data:
